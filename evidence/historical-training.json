@@ -1,0 +1,40 @@
+{
+  "kind": "historical_report_extracts",
+  "original_run_date": "2026-10-24",
+  "inspected_local_copies_date": "2026-11-19",
+  "remote_artifact_presence_confirmed": true,
+  "rerun_in_documentation_session": false,
+  "smoke": {
+    "source": "/data/dengming/isaaclab_fairino/robotdog_d1_max/training/reports/smoke_256_randomized.json",
+    "status": "PASS",
+    "num_envs": 256,
+    "steps": 400,
+    "observation_shape": [256, 56],
+    "action_shape": [256, 16],
+    "height_range_m_as_reported": [0.6179546117782593, 0.6375472545623779],
+    "height_statistic_caveat": "Range of per-step minimum height across environments, not complete global max/min over every environment.",
+    "mean_forward_displacement_m": 0.9473686218261719,
+    "drive_episode_resets": 0,
+    "mean_summed_wheel_contact_force_N": 415.9926075744629,
+    "fall_timeout_and_reset_isolation": "PASS"
+  },
+  "evaluation": {
+    "source": "/data/dengming/isaaclab_fairino/robotdog_d1_max/training/logs/20261024_170911_evaluate/evaluation.json",
+    "status": "COMPLETED",
+    "command": [0.3, 0.0, 0.0],
+    "num_envs": 64,
+    "steps": 500,
+    "mean_vx_abs_error_m_s": 0.3268831541240215,
+    "mean_yaw_abs_error_rad_s": 0.040369419607101005,
+    "mean_height_m": 0.6084334414005279,
+    "torchscript_max_action_difference": 0.0,
+    "episode_resets": 0
+  },
+  "source_copies_read": [
+    {"local_relative_to_parent_workspace": "d1_max_training/d1_env.py", "sha256": "5fd634b0ca048ab4da285318e69ec2e3a21608bcb1211ecafb17b1c58e1d3148"},
+    {"local_relative_to_parent_workspace": "d1_max_training/run.py", "sha256": "1c94a64e83d26a8f82e3296395f7659e820f293ac8a59daf417e37120a671fe0"},
+    {"local_relative_to_parent_workspace": "d1_max_training/prepare_asset.py", "sha256": "42c656b9e6b132802f09aaa7fceda0d66c9eb5754a7bdb5ae02481377dd6d171"},
+    {"local_relative_to_parent_workspace": "fairino_isaac_migration/collect_pick_dataset.py", "sha256": "3688d79fc601b1b5c736fa07c2c7afcbe40f785e51db28b93c6032cdaf0492a9"},
+    {"local_relative_to_parent_workspace": "fairino_isaac_migration/relay_fairino_tcp_udp.py", "sha256": "6581ef11269419cf736b8b62aca7b358d8f07c08e77df941f70231ab4e821fe9"}
+  ]
+}

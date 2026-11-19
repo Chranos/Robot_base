@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-19",
+  "timezone": "Asia/Shanghai",
+  "kind": "curated_read_only_observation",
+  "method": "Authenticated SSH command output and docker exec read-only inspection. Values below summarize successful observations, not an automatic comprehensive scanner.",
+  "host": {
+    "address": "192.168.190.200",
+    "os": "Ubuntu 22.04.5 LTS",
+    "kernel": "6.8.0-138-generic",
+    "cpu": "Intel Core i7-13700K, 24 logical CPUs",
+    "memory_reported": "31 GiB",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "gpu_memory_mib": 24564,
+    "driver": "580.178.04",
+    "data_partition_available_at_observation": "234 GiB",
+    "interfaces": {"vpn_vpn": "192.168.190.200/24", "enp9s0": "192.168.1.49/24", "enp8s0": "192.168.58.3/24"},
+    "commands": ["uname -a", "cat /etc/os-release", "lscpu", "free -h", "df -h /data", "ip -br addr", "ip route", "nvidia-smi --query-gpu=name,memory.total,memory.used,driver_version --format=csv,noheader"]
+  },
+  "containers": [
+    {"name": "isaacvnc_dengming", "image_tag": "isaac_vnc:v1.0", "state": "running", "network": "host", "mount": "/data/dengming:/home"},
+    {"name": "frros2_sj", "image_tag": "sunny666666/frros2_desktop:v1.0", "state": "running", "network": "host", "mount": "/data/songjie:/workspace"},
+    {"name": "isaacsim_env", "image_tag": "dengminglrobotlab:isaacsim-5.1-20260731", "state": "stopped", "network": "bridge", "mount": "/lab/workspace:/workspace"},
+    {"name": "isaac_sj", "image_tag": "nvcr.io/nvidia/isaac-lab:2.1.0", "state": "stopped", "network": "not_verified", "mount": "not_verified"}
+  ],
+  "isaac_runtime": {
+    "container": "isaacvnc_dengming",
+    "isaaclab_version_file": "/workspace/isaaclab/VERSION",
+    "isaaclab": "2.1.0",
+    "python": "3.10.15",
+    "packages": {"torch": "2.5.1", "rsl-rl-lib": "2.3.1", "gymnasium": "1.1.1", "numpy": "1.26.4", "tensorboard": "2.19.0"},
+    "isaac_sim_baseline": "4.5, corroborated by historical project runtime evidence; not newly started in this documentation audit"
+  },
+  "ros": {
+    "container": "frros2_sj",
+    "distribution": "humble",
+    "nodes_seen": ["/rqt_gui_cpp_node_5604"],
+    "image_topics": [
+      {"name": "/d455/color/image_raw", "type": "sensor_msgs/msg/Image", "publishers": 0, "subscriptions": 1},
+      {"name": "/l515/color/image_raw", "type": "sensor_msgs/msg/Image", "publishers": 0, "subscriptions": 1}
+    ],
+    "missing_path": "/home/383_ws/fr_90c_ws/install/setup.bash",
+    "login_shell_error": "/etc/profile line 28: invalid export entries",
+    "commands": ["source /opt/ros/humble/setup.bash", "ros2 node list --no-daemon", "ros2 topic list --no-daemon -t", "ros2 topic info -v /d455/color/image_raw --no-daemon", "ros2 topic info -v /l515/color/image_raw --no-daemon"]
+  },
+  "usb_devices_seen": ["Intel RealSense L515, USB ID 8086:0b64", "Intel RealSense D455, USB ID 8086:0b5c"],
+  "source_directories_seen_under_data_songjie_EMAI": ["isaacsim_env", "val_sim", "LIBERO", "openvla-oft-main", "Real_control", "openvla", "graspnet-baseline-main", "mujoco-learning-main", "SpatialBot-main", "GLM-4-main", "depth-fm-main", "rlds_dataset_mod-main", "rlds_dataset_builder-main"],
+  "ros_workspaces_seen": ["/home/383_ws/fr_90c_ws", "/home/383_ws/frcobot_ros2-3.0.0_RobotV3.8.3", "/home/handeye_ws", "/home/ros2_realsense_ws", "/home/ext_config_ws", "/home/ros2_control_ws", "/home/LIBERO"],
+  "conda_environment_names_seen_in_ros_container": ["depthfm", "grasp", "rlds_env", "robosuite", "ros2bot"],
+  "datasets_seen": {
+    "base": "/data/dengming/isaaclab_fairino/output/datasets",
+    "pilot": {"name": "fairino_pick_pilot_v1", "episode_directories_seen": 10, "full_validation_this_session": "not_completed"},
+    "others": ["fairino_pick_preflight_v1", "fairino_pick_smoke"]
+  },
+  "historical_d1_artifacts_seen": [
+    "training/reports/asset_audit.json", "training/reports/smoke_4.json", "training/reports/smoke_64_randomized.json", "training/reports/smoke_256_randomized.json",
+    "training/logs/20261024_170151_pipeline_check/model_final.pt", "training/logs/20261024_170151_pipeline_check/result.json",
+    "training/logs/20261024_170713_resume_256_check/model_final.pt", "training/logs/20261024_170713_resume_256_check/result.json",
+    "training/logs/20261024_170911_evaluate/evaluation.json"
+  ],
+  "limitations": [
+    "No robot SDK, motion command, state relay or controller connection was executed.",
+    "No long training or model inference was started.",
+    "Later SSH attempts intermittently timed out; full dataset revalidation and per-file source parity were not completed.",
+    "Detailed source contracts were read from local migration/training copies; deployed file equality needs hashes before a new experiment.",
+    "Other members' unrelated personal content and credentials were not copied.",
+    "Directory/package presence does not establish service health, successful benchmark reproduction or policy convergence."
+  ]
+}
