@@ -1,0 +1,33 @@
+**独立复核结论：PASS（文档审核）。**
+
+审核提交为 `f10d4e3108dd56002fe4df61da807fa8ac6ef265`；已检查相对 `449619e7fa56b5ac1f5a896959808cfa3ac6a315` 的全部差异。本人未参与文档撰写，本轮全程只读。
+
+三项初审问题均已解决：
+
+1. **P2｜UDP 新鲜度与 ROS 映射：已解决。**
+   [第 11 章第 34 行](/Users/dengming/Desktop/workspace/robot/老师工作/Robot_base/docs/11-sim-to-real.md:34)准确区分 UDP 固定顺序、ROS `/joint_states` 按名映射及非实时消息固定字段。源码确认接收器不校验 sequence 或源时间，以本地接收时间刷新 stamp；0.5 s 只表示有效报文接收超时，旧包仍可能维持 LIVE。文档已明确这些限制及待实现保护。
+
+2. **P2｜D1 评估能力与验收要求：已解决。**
+   [第 12 章第 39 行](/Users/dengming/Desktop/workspace/robot/老师工作/Robot_base/docs/12-experiments.md:39)与 `run.py` 一致：现有输出只有总体误差、高度、总 reset 和初始观测批次的导出动作比对；evaluate 关闭初始姿态扰动，nominal 换 seed 不构成充分随机证据，自动 reset 后读数继续计入均值。
+   建议协议已明确 750×0.02＝15 s、每 checkpoint 每条件 8×3×64＝1,536 个窗口、失败窗口保留、超时与跌倒分离、匹配基线及候选阈值。逐环境存活、滑移、饱和和基线 runner 均如实标为待补，第 9、14 章没有将其写成现成能力或已达标结果。
+
+3. **P3｜接触奖励判据：已解决。**
+   [第 9 章第 71 行](/Users/dengming/Desktop/workspace/robot/老师工作/Robot_base/docs/09-d1-max-rl.md:71)与 `d1_env.py` 一致：HIP/KNEE 连杆逐个取接触历史最大力模长，严格 **>5 N** 后计数；历史长度配置为 3、更新周期 0.005 s。BASE 终止阈值 **>20 N** 已分开说明。
+
+附加重点核对也通过：
+
+- **历史源码漂移：**续训及对应评估 manifest 的 runner hash 为 `28d3bfd5…`，当前副本为 `1c94a64e…`；环境和训练 USD hash 匹配，首次短测 manifest 无源码 hash。文档披露准确。
+- **视频时间：**录制器主循环每输出帧显式调用一次 `sim.step`，dt＝1/120 s；420 帧对应显式模拟时间约 3.5 s，30 FPS 编码时长为 14 s。[第 6 章第 66 行](/Users/dengming/Desktop/workspace/robot/老师工作/Robot_base/docs/06-fairino-simulation.md:66)已限定计算范围，并说明直接写状态及运动学附着的局限。
+
+**未发现新增需整改的技术问题或实质章节矛盾。**相对于提供的服务器盘点清单，各技术分支均有覆盖，学习路线具备练习、产物和验收边界。审核页等待本轮结论属于正常行政状态，不构成技术失败。
+
+实际检查与证据：
+
+- 完整阅读 README、CONTRIBUTING、全部 18 份 docs、3 份证据 JSON、初审原文及提交差异。
+- 直接静态阅读同步器、两种 relay、D1 环境与 runner、抓取录制器；补查采集器、validator、资产准备及启动脚本。
+- 核对历史资产审计、三份 smoke、训练结果、两份完成评估及六份 manifest；证据列出的 5 个源码 SHA-256 全部匹配。
+- `python3 tools/check_docs.py`：退出码 0；20 份 Markdown、64 个本地链接、26 段 Bash，错误 0。
+- `git diff --check`、`git show --format= --check HEAD`：均退出码 0。
+- 结束时 HEAD 仍为指定提交，工作树干净，无文件修改。
+
+限制：本轮未重新验证服务器现状、远端源码一致性、在线服务、数据集全量内容或物理效果；外链可达性仅检查已有记录，未重新请求。未 SSH、连接硬件或网络服务、启动容器、运行仿真训练、导入机器人代码、加载 checkpoint、编辑或推送。**本次 PASS 不构成运行时、策略收敛或部署认证。**
