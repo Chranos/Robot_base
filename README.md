@@ -8,7 +8,7 @@
 
 | 你的任务 | 阅读入口 |
 |---|---|
-| 第一次使用服务器 | [环境与容器](docs/01-infrastructure.md) → [最小复现](docs/15-runbooks.md) |
+| 第一次使用服务器 | [1008 VPN 连接](docs/17-vpn-1008.md) → [环境与容器](docs/01-infrastructure.md) → [最小复现](docs/15-runbooks.md) |
 | 想知道现在已经做到了哪一步 | [技术地图与状态](docs/00-stack-map.md) → [盘点证据](docs/16-evidence.md) |
 | 学机械臂与 ROS 2 | [数学与控制](docs/02-foundations.md) → [模型](docs/03-robot-assets.md) → [ROS 2 / MoveIt](docs/04-ros2-moveit.md) |
 | 把 FR5 放进 Isaac 并采数据 | [仿真运行时](docs/05-isaac-runtime.md) → [FR5](docs/06-fairino-simulation.md) → [数据集](docs/08-datasets-imitation.md) |

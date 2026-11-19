@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-19",
+  "timezone": "Asia/Shanghai",
+  "kind": "read_only_local_vpn_inspection",
+  "user_identification": "User specified the VPN configured in system settings and named 1008.",
+  "macos_system_settings": {
+    "profile_display_name": "1008",
+    "status_at_observation": "disconnected",
+    "protocol": "L2TP/IPSec",
+    "user_authentication": "password",
+    "machine_authentication": "shared_secret",
+    "ipv4_configuration": "PPP",
+    "send_all_traffic_over_vpn": false,
+    "other_visible_profile": {"name": "Tailscale", "status": "connected"},
+    "redacted_fields": ["VPN gateway hostname", "VPN account name"],
+    "credentials": "Password and shared secret remained masked; not revealed, exported, read or recorded."
+  },
+  "diagnostics": {
+    "target": "192.168.190.200",
+    "route_command": "route -n get 192.168.190.200",
+    "route_at_observation": {"matched_route": "default", "interface": "en0", "gateway": "omitted"},
+    "tcp_command": "nc -vz -G 3 192.168.190.200 22",
+    "tcp_result": "Operation timed out",
+    "scutil_command": "scutil --nc list",
+    "scutil_caveat": "Only Tailscale appeared in that command output; System Settings separately showed 1008. Command output alone is not a complete profile inventory."
+  },
+  "changes_performed": "None; inspected details/options/TCP-IP, exited using Cancel. No VPN toggle, settings save, network change or login.",
+  "limitations": [
+    "No successful 1008 connection was demonstrated in this inspection.",
+    "No verification of route, assigned PPP address or server reachability after connecting.",
+    "No Windows configuration was inspected.",
+    "No real-robot connection or controller probe was performed.",
+    "Public guide intentionally requires privately supplied gateway/account/credentials for setup on a new machine."
+  ]
+}

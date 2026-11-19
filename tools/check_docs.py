@@ -14,7 +14,7 @@ REQUIRED = ["README.md", "CONTRIBUTING.md", "docs/review.md",
     "docs/06-fairino-simulation.md", "docs/07-perception-calibration.md",
     "docs/08-datasets-imitation.md", "docs/09-d1-max-rl.md", "docs/10-vla-libero.md",
     "docs/11-sim-to-real.md", "docs/12-experiments.md", "docs/13-troubleshooting.md",
-    "docs/14-learning-roadmap.md", "docs/15-runbooks.md", "docs/16-evidence.md",
+    "docs/14-learning-roadmap.md", "docs/15-runbooks.md", "docs/16-evidence.md", "docs/17-vpn-1008.md",
     "evidence/2026-11-19-inventory.json"]
 errors = []
 links = blocks = 0
