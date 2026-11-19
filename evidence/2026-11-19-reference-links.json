@@ -1,0 +1,119 @@
+{
+  "date": "2026-11-19",
+  "kind": "http_availability_only",
+  "method": "curl -L -sS -o /dev/null --max-time 25 -w http_code/url_effective",
+  "scope": "22 external HTTPS references present in the technical chapters before review additions; localhost examples intentionally not requested",
+  "limitation": "HTTP 200 proves retrieval at check time, not correctness, version stability, source quality or local reproducibility",
+  "results": [
+    {
+      "url": "https://control.ros.org/humble/index.html",
+      "http_status": 200,
+      "final_url": "https://control.ros.org/humble/index.html"
+    },
+    {
+      "url": "https://docs.ros.org/en/humble/Concepts.html",
+      "http_status": 200,
+      "final_url": "https://docs.ros.org/en/humble/Concepts.html"
+    },
+    {
+      "url": "https://docs.ros.org/en/humble/Tutorials.html",
+      "http_status": 200,
+      "final_url": "https://docs.ros.org/en/humble/Tutorials.html"
+    },
+    {
+      "url": "https://github.com/CompVis/depth-fm",
+      "http_status": 200,
+      "final_url": "https://github.com/CompVis/depth-fm"
+    },
+    {
+      "url": "https://github.com/IntelRealSense/realsense-ros",
+      "http_status": 200,
+      "final_url": "https://github.com/realsenseai/realsense-ros"
+    },
+    {
+      "url": "https://github.com/LauraMQuiros/b2w-rl",
+      "http_status": 200,
+      "final_url": "https://github.com/LauraMQuiros/b2w-rl"
+    },
+    {
+      "url": "https://github.com/Lifelong-Robot-Learning/LIBERO",
+      "http_status": 200,
+      "final_url": "https://github.com/Lifelong-Robot-Learning/LIBERO"
+    },
+    {
+      "url": "https://github.com/google-research/rlds",
+      "http_status": 200,
+      "final_url": "https://github.com/google-research/rlds"
+    },
+    {
+      "url": "https://github.com/graspnet/graspnet-baseline",
+      "http_status": 200,
+      "final_url": "https://github.com/graspnet/graspnet-baseline"
+    },
+    {
+      "url": "https://github.com/isaac-sim/IsaacLab/tree/v2.1.0/source/isaaclab_tasks/isaaclab_tasks/direct/anymal_c",
+      "http_status": 200,
+      "final_url": "https://github.com/isaac-sim/IsaacLab/tree/v2.1.0/source/isaaclab_tasks/isaaclab_tasks/direct/anymal_c"
+    },
+    {
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "http_status": 200,
+      "final_url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot"
+    },
+    {
+      "url": "https://github.com/kpertsch/rlds_dataset_builder",
+      "http_status": 200,
+      "final_url": "https://github.com/kpertsch/rlds_dataset_builder"
+    },
+    {
+      "url": "https://github.com/leggedrobotics/legged_gym",
+      "http_status": 200,
+      "final_url": "https://github.com/leggedrobotics/legged_gym"
+    },
+    {
+      "url": "https://github.com/leggedrobotics/rsl_rl/tree/v2.3.1",
+      "http_status": 200,
+      "final_url": "https://github.com/leggedrobotics/rsl_rl/tree/v2.3.1"
+    },
+    {
+      "url": "https://github.com/moojink/openvla-oft",
+      "http_status": 200,
+      "final_url": "https://github.com/moojink/openvla-oft"
+    },
+    {
+      "url": "https://github.com/openvla/openvla",
+      "http_status": 200,
+      "final_url": "https://github.com/openvla/openvla"
+    },
+    {
+      "url": "https://github.com/real-stanford/diffusion_policy",
+      "http_status": 200,
+      "final_url": "https://github.com/real-stanford/diffusion_policy"
+    },
+    {
+      "url": "https://isaac-sim.github.io/IsaacLab/v2.1.0/",
+      "http_status": 200,
+      "final_url": "https://isaac-sim.github.io/IsaacLab/v2.1.0/"
+    },
+    {
+      "url": "https://isaac-sim.github.io/IsaacLab/v2.1.0/source/tutorials/index.html",
+      "http_status": 200,
+      "final_url": "https://isaac-sim.github.io/IsaacLab/v2.1.0/source/tutorials/index.html"
+    },
+    {
+      "url": "https://modernrobotics.northwestern.edu/",
+      "http_status": 200,
+      "final_url": "https://modernrobotics.northwestern.edu/nu-gm-book-resource/foundations-of-robot-motion/"
+    },
+    {
+      "url": "https://moveit.picknik.ai/humble/index.html",
+      "http_status": 200,
+      "final_url": "https://moveit.picknik.ai/humble/index.html"
+    },
+    {
+      "url": "https://spinningup.openai.com/en/latest/algorithms/ppo.html",
+      "http_status": 200,
+      "final_url": "https://spinningup.openai.com/en/latest/algorithms/ppo.html"
+    }
+  ]
+}

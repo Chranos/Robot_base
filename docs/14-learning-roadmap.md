@@ -9,7 +9,7 @@
 | 2 机器人模型/ROS | 1–2 周 | URDF/Xacro/SRDF、TF、topic/service/action、QoS | 解释 FR5＋90C 的 joint/link；离线模型树；topic 发布者/订阅者核验 |
 | 3 仿真与控制 | 1–2 周 | USD、PhysX、碰撞、PD、多频率 | FR5/D1 小 smoke；记录接触/角度/力矩；指出动画与动力学差别 |
 | 4 感知与数据 | 1–2 周 | RGB-D、内参、手眼、数据 schema/split | 可视化深度反投影；校验 pilot；写数据卡和时序/动作定义 |
-| 5A 轮足 RL | 2–4 周 | MDP、PPO、奖励、随机化、评估 | 复现短测；多命令/多 seed 验收，优于固定轮速/零动作基线 |
+| 5A 轮足 RL | 2–4 周 | MDP、PPO、奖励、随机化、评估 | 复现短测；补齐评估记录，按[固定窗口、样本数、基线和候选阈值](12-experiments.md)完成多命令/多 seed 验收 |
 | 5B 机械臂模仿 | 2–4 周 | BC、图像编码、action chunk、闭环 | 状态 BC→图像 BC；按 episode 留出测试；仿真闭环统计失败 |
 | 6 VLA/基准 | 2–4 周 | RLDS、LIBERO、OpenVLA/OFT、微调 | 一个数据 episode→模型输入→解码动作→仿真；固定版本复现一个任务 |
 | 7 Sim-to-Real | 按研究进度 | 参数辨识、状态估计、延迟、shadow inference | 离线与只读反馈对齐报告；实机执行另立任务与验收 |
@@ -39,6 +39,8 @@
 先验证现有抓取 pilot，再读 [D1](09-d1-max-rl.md) 跑少量 PPO。写一张 action contract，加载导出策略比对动作。长训练不作为入门练习的默认步骤。
 
 产物：数据检查报告、短测配置/seed/checkpoint、固定命令误差。通过条件：能承认“流程跑通，但策略未收敛”，并给出证据。
+
+阶段 5A 不能直接用现有 `evaluation.json` 判通过：它只有总体均值/总 reset，nominal 换 seed 也不等于随机评估。先按[实验协议](12-experiments.md)补逐环境失败、存活、滑移/饱和和匹配基线；该新增能力未实现，不把建议验收写成现成一键功能。
 
 ## 选择主线，避免同时展开所有项目
 

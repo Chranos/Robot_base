@@ -30,6 +30,18 @@
     "torchscript_max_action_difference": 0.0,
     "episode_resets": 0
   },
+  "historical_manifest_provenance": {
+    "manifests": [
+      "/data/dengming/isaaclab_fairino/robotdog_d1_max/training/logs/20261024_170713_resume_256_check/manifest.json",
+      "/data/dengming/isaaclab_fairino/robotdog_d1_max/training/logs/20261024_170911_evaluate/manifest.json"
+    ],
+    "run_py_sha256_in_these_manifests": "28d3bfd55fb335dadc0596fce7ff768ad378c04a655c38b487fe476f24551905",
+    "current_local_run_py_sha256": "1c94a64e83d26a8f82e3296395f7659e820f293ac8a59daf417e37120a671fe0",
+    "d1_env_py_sha256_in_these_manifests": "5fd634b0ca048ab4da285318e69ec2e3a21608bcb1211ecafb17b1c58e1d3148",
+    "training_usd_sha256_in_these_manifests": "50d796b5adea1b1c4ea860d27c78fe104aeffa27090a8c7aba8c9431204812c4",
+    "earliest_pipeline_manifest_has_source_hashes": false,
+    "limitation": "The current local runner is not the exact source snapshot of every historical run. No claim is made about the cause of the difference or bit-identical reproduction."
+  },
   "source_copies_read": [
     {"local_relative_to_parent_workspace": "d1_max_training/d1_env.py", "sha256": "5fd634b0ca048ab4da285318e69ec2e3a21608bcb1211ecafb17b1c58e1d3148"},
     {"local_relative_to_parent_workspace": "d1_max_training/run.py", "sha256": "1c94a64e83d26a8f82e3296395f7659e820f293ac8a59daf417e37120a671fe0"},

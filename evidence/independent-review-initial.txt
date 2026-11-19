@@ -1,0 +1,34 @@
+**独立审查结论：FAIL，需修订后复核。**
+
+审查提交：`449619e7fa56b5ac1f5a896959808cfa3ac6a315`，与当前 HEAD 一致。失败原因是反馈新鲜度和评估验收边界说明不足；**SSH 不可用、未重跑仿真本身不构成失败理由**。
+
+覆盖范围基本完整：基础设施、ROS/MoveIt、Isaac、FR5、感知与标定、数据集、D1/PPO、VLA/LIBERO/RLDS、Sim-to-Real 均有对应章节。文档正确区分了源码存在、历史验证、运动学附着和策略收敛，主要历史数值也与本地报告一致。
+
+1. **P2｜“防旧数据”描述超出接收器实际能力。**
+   [docs/11-sim-to-real.md:30](/Users/dengming/Desktop/workspace/robot/老师工作/Robot_base/docs/11-sim-to-real.md:30) 列出 sequence、发送时间与 stale timeout，但没有说明这些字段未参与新鲜度校验。实际 [sync_real_to_isaac.py:168](/Users/dengming/Desktop/workspace/robot/老师工作/fairino_isaac_migration/sync_real_to_isaac.py:168) 只验证 schema、六维数值和有限性，随后以**本地接收时间**更新 stamp；没有拒绝重复、乱序或过期报文。重复旧包仍可能维持 LIVE。UDP 也不携带关节名称，“校验名字与顺序”应与 ROS 按名映射区别表述。
+   **修复：**明确当前仅在持续收不到有效报文超过 0.5 秒后冻结，尚无源数据年龄、序列或重放保护；将这些能力列为待实现、待离线验证项。文档修订即可，不要求本次修改机器人代码。
+
+2. **P2｜D1 学习路线的验收要求与现有评估器之间缺少明确说明。**
+   [docs/12-experiments.md:29](/Users/dengming/Desktop/workspace/robot/老师工作/Robot_base/docs/12-experiments.md:29) 要求跌倒率、滑移、饱和等指标；[docs/14-learning-roadmap.md:12](/Users/dengming/Desktop/workspace/robot/老师工作/Robot_base/docs/14-learning-roadmap.md:12) 要求多指令、多 seed 并优于基线，但没有说明现成命令不能完成全部验收。
+   [run.py:94](/Users/dengming/Desktop/workspace/robot/老师工作/d1_max_training/run.py:94) 在 evaluate 中关闭初始姿态扰动；未启用随机化时，仅更换 seed 不能形成有意义的随机评估。[run.py:238](/Users/dengming/Desktop/workspace/robot/老师工作/d1_max_training/run.py:238) 仅输出总体平均误差、高度和总 reset 数，没有分别统计跌倒/超时、逐环境存活、滑移或饱和；自动 reset 后的数据也继续进入均值。
+   **修复：**列出现有输出和待补指标；说明 nominal 多 seed 的局限、总 reset 不能直接当跌倒率。为阶段验收补充固定时长、样本数、基线比较规则和候选阈值，并标注为建议门槛。父目录《下一步训练方案.md》已有可参考的具体方案，不能写成已达标结果。
+
+3. **P3｜奖励表尚未完整表达非预期接触判据。**
+   [docs/09-d1-max-rl.md:66](/Users/dengming/Desktop/workspace/robot/老师工作/Robot_base/docs/09-d1-max-rl.md:66) 仅写“非预期接触连杆数”。实际 [d1_env.py:190](/Users/dengming/Desktop/workspace/robot/老师工作/d1_max_training/d1_env.py:190) 对 HIP/KNEE 连杆取接触历史中的最大力模长，以 **>5 N** 判定后计数。
+   **修复：**补充连杆集合、5 N 阈值和历史窗口语义。这是非阻断完善项。
+
+**实际完成的检查：**
+
+- `python3 tools/check_docs.py`：通过；20 份 Markdown、59 个本地链接、26 段 Bash 语法，错误为 0。
+- `git diff --check`：通过。
+- `git show --format= --check 449619e…`：通过，覆盖提交补丁本身。
+- 18 个 Python 文件仅做 AST 静态解析：通过；4 个本地 shell 脚本仅做 `bash -n`：通过。
+- 两份历史摘录与对应 smoke/evaluation JSON 数值一致；证据中列出的 5 个源码 SHA-256 全部吻合。
+- 静态运行 `tools/source_outline.py` 检查镜像与 ROS relay：正常。
+- 工作区检查为空，无文件修改。
+
+**已检查的材料：**
+
+完整阅读 README、CONTRIBUTING、`docs/` 下全部 18 份 Markdown、两份证据 JSON、两份 Python 文档工具，以及 CI 和忽略规则。对照阅读了 D1 的 `d1_env.py`、`run.py`、`prepare_asset.py`、启动脚本、历史说明、下一步方案，检查了资产审计、三份 smoke 报告、训练结果、两份完成评估及历史 manifest；FR5 部分阅读了采集器、validator、配置、smoke、抓取录制器、镜像、两种 relay、采集与 CUDA 启动器及迁移 README。
+
+**限制：**服务器盘点 JSON 是整理后的观测摘要，本次不能独立确认服务器现状或远端源码一致性；历史运行 manifest 中的 `run.py` hash 也并非全部等于当前副本。未验证在线相机、数据集全量内容、模型推理、物理效果或部署健康度。没有 SSH、连接机器人、启动容器、执行机器人代码、加载 checkpoint、修改或推送文件。上述历史证据只支持历史流程结果，不支持当前部署成功或策略收敛。

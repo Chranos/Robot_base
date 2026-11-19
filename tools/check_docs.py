@@ -25,7 +25,7 @@ files = [p for p in ROOT.rglob("*") if p.is_file() and ".git" not in p.parts]
 for path in files:
     if path.suffix.lower() in {".pem", ".key", ".pt", ".pth", ".mp4", ".zip"}:
         errors.append(f"Unexpected credential/binary/asset file: {path.relative_to(ROOT)}")
-    if path.suffix not in {".md", ".json", ".py", ".yml", ".yaml"}:
+    if path.suffix not in {".md", ".txt", ".json", ".py", ".yml", ".yaml"}:
         continue
     source = path.read_text()
     # Detect concrete secrets, not prose describing credential boundaries.

@@ -27,11 +27,15 @@
 
 TCP relay 的 controller socket 只 `recv`，没有应用层 send/write；但建立 TCP 本身会有握手/ACK，不能描述成“网络上零字节”。UDP 仅在本机 loopback 发送。两个容器使用 host 网络时共享该回环；bridge 模式的 127.0.0.1 不是同一个网络命名空间。
 
-## 协议与防旧数据
+## 协议与接收超时边界
 
 relay 按历史 V3.8.3 打包结构解析：帧头 `/f/b`、长度字段、帧尾 `III/b/f`、六个 little-endian double 关节角。增量 buffer 处理分包/粘包，检查长度与有限值。其他固件/驱动结构可能不同，不能只因为连接成功就相信解析。
 
-JSON schema 为 `fairino_joint_feedback_v1`，包含 sequence、sent_monotonic_ns、joint_deg。仿真转换为 rad，校验名字与顺序；stale timeout 默认 0.5 s，失去更新时冻结虚拟状态，max-step 默认 0.15 rad 限制显示跳变。
+JSON schema 为 `fairino_joint_feedback_v1`，包含 sequence、sent_monotonic_ns、joint_deg。当前 UDP 接收器只检查 schema、6 维数值及有限性，按约定的 j1…j6 顺序转换为 rad；包内没有 joint names，不能检测发送端是否错序。ROS `/joint_states` 分支才按名字映射，`/nonrt_state_data` 则读取固定的六个字段。
+
+**现有代码不验证 sequence 或 sent_monotonic_ns**，而是每收到一个格式有效的包就以本地 `time.monotonic()` 更新 stamp。默认 0.5 s stale timeout 仅保证“持续收不到有效包时冻结”；重复、乱序或过期的旧包仍可能刷新接收时间并显示 LIVE。它不是源数据年龄验证、时延测量或重放保护。max-step 默认 0.15 rad 仅限制每次仿真更新的显示跳变。
+
+待实现且须先离线测试：拒绝重复/乱序序号、处理 relay 重启的会话切换、记录源测量时间与发送/接收时间、校验源数据年龄。发送时间不自动等于测量时间；跨机器时钟也不能直接相减。离线故障样本应覆盖停止发包、重复旧包、乱序、过期时间戳、错误关节顺序和非有限数；目前没有这些保护的通过记录。
 
 这些限幅只作用于仿真镜像，不是实机急停。反馈中没有可靠的实测夹爪宽度，不能从完成标志猜夹爪位姿。
 
